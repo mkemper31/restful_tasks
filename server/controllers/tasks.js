@@ -7,7 +7,7 @@ module.exports = {
     all: async (req, res) => {
         try {
             const tasks = await Task.find();
-            res.json(tasks);
+            res.json({tasks: tasks});
         }
         catch (err) {
             res.json(err);
