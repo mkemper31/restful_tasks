@@ -20,7 +20,7 @@ module.exports = {
         Task.findById({ _id : req.params.id })
             .then((data) => {
                 console.log(data);
-                res.json(data)
+                res.json({taskInfo: data})
             })
             .catch(err => res.json(err));
     },
