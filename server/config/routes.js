@@ -7,7 +7,6 @@ module.exports = (app) => {
         tasks.all(req, res);
     });
     app.get('/tasks/:id', (req, res) => {
-        console.log("getting by id");
         tasks.one(req, res);
     });
     app.post('/tasks/create', (req, res) => {

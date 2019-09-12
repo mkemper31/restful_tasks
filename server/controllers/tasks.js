@@ -14,32 +14,25 @@ module.exports = {
         }
     },
     one: async (req, res) => {
-        console.log(req.params);
         let task = await Task.findById({ _id : req.params.id });
-        console.log(task);
         Task.findById({ _id : req.params.id })
             .then((data) => {
-                console.log(data);
-                res.json({taskInfo: data})
+                res.json({task: data})
             })
             .catch(err => res.json(err));
     },
     create: (req, res) => {
-        console.log(req.body);
         const task = new Task(req.body);
-        console.log(task);
         task.save()
             .then((data) => {
-                console.log(data);
-                res.redirect('/');
+                res.json({newTask: data});
             })
             .catch(err => res.json(err));
     },
     update: (req, res) => {
         Task.updateOne({ _id : req.params.id }, req.body)
             .then((data) => {
-                console.log(data);
-                res.redirect('/');
+                res.json({updatedTask: data});
             })
             .catch(err => res.json(err));
     },

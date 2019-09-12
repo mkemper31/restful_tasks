@@ -1,36 +1,55 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<h1 class="text-center">Restful Tasks API</h1>
-<div class="row justify-content-center">
-  <div class="col-6">
-      <div class="row justify-content-center">
-        <button (click)="buttonGetAllTasks($event)" class="btn btn-primary">Get All Tasks</button>
+
+<div class="container">
+  <div class="row justify-content-start">
+    <form class="col-6" (submit)="onSubmit()">
+      <h3>New Task</h3>
+      <div class="form-group">
+          <label for="newtaskTitle">Title</label>
+          <input class="form-control" type="text" id="newtaskTitle" name="newTask.title" [(ngModel)]="newTask.title" placeholder="Enter Task Title"/>
       </div>
-      <div *ngFor="let task of tasks" class="row justify-content-between">
-          <p>{{task.title}}</p>
-          <button (click)="buttonGetTaskData(task._id)">Info</button>
+      <div class="form-group">
+          <label for="newtaskDesc">Description</label>
+          <input class="form-control" type="text" id="newtaskDesc" name="newTask.description" [(ngModel)]="newTask.description" placeholder="Enter Task Description"/>
       </div>
-      <div *ngIf="taskInfo" class="text-center">
-        <p>{{taskInfo.description}}</p>
+      <input type="submit" class="btn btn-primary" value="Create Task"/>
+    </form>
+  </div>
+  <hr>
+  <div class="row justify-content-between">
+    <div class="col-6">
+      <div *ngFor="let task of tasks" class="col-12 border border-dark mt-2">
+        <div class="row justify-content-between p-2">
+            <div class="col-7">
+              <h4>{{task.title}}</h4>
+              <p>{{task.description}}</p>
+            </div>
+            <div class="col-4">
+              <button (click)="onClickEdit(task._id)" class="btn btn-secondary mb-2">Edit</button>
+              <button (click)="onClickDelete(task._id)" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
       </div>
+    </div>
+    <div class="col-5">
+      <form *ngIf="isEditing" (submit)="updateTask()">
+          <h3>Edit Task</h3>
+          <div class="form-group">
+              <label for="edittaskTitle">Title</label>
+              <input class="form-control" type="text" id="edittaskTitle" name="editingTask.title" [(ngModel)]="editingTask.title" placeholder="Enter Task Title"/>
+          </div>
+          <div class="form-group">
+              <label for="edittaskDesc">Description</label>
+              <input class="form-control" type="text" id="edittaskDesc" name="editingTask.description" [(ngModel)]="editingTask.description" placeholder="Enter Task Description"/>
+          </div>
+          <input type="submit" class="btn btn-primary" value="Edit Task"/>
+
+      </form>
+    </div>
   </div>
 </div>
 
